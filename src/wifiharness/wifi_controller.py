@@ -1,27 +1,71 @@
-import subprocess, json, time
-from .wifi_logger import log_event
+import subprocess
+import time
+from typing import Optional
+
 
 class WiFiController:
-    def scan(self):
-        """Return list of SSIDs visible to system."""
-        cmd = ["networksetup", "-listallhardwareports"]
-        out = subprocess.check_output(cmd).decode()
-        log_event("scan", "success")
-        return out
+    """Controls Wi-Fi actions such as scanning and connecting on macOS."""
 
-    def connect(self, ssid, password):
+    def __init__(self, interface: str = "en0") -> None:
+        self.interface = interface
+
+    def scan(self) -> str:
+        """
+        Return hardware ports list (used by tests to assert contents).
+        On macOS this is typically:
+        `networksetup -listallhardwareports`
+        """
+        result = subprocess.run(
+            ["networksetup", "-listallhardwareports"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout or ""
+
+    def connect(
+        self, ssid: str, password: str, timeout_s: Optional[float] = None
+    ) -> float:
+        """
+        Join the given SSID using the specified interface.
+        Returns elapsed time in milliseconds.
+        """
         start = time.time()
-        try:
-            subprocess.run(["networksetup", "-setairportnetwork", "en0", ssid, password], check=True)
-            latency = (time.time() - start) * 1000
-            log_event("connect", "success", {"ssid": ssid, "latency_ms": latency})
-            return latency
-        except subprocess.CalledProcessError as e:
-            log_event("connect", "failure", {"error": str(e)})
-            raise
+        subprocess.run(
+            ["networksetup", "-setairportnetwork", self.interface, ssid, password],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=timeout_s,
+        )
+        return (time.time() - start) * 1000.0
 
-    def disconnect(self):
-        subprocess.run(["networksetup", "-setairportpower", "en0", "off"])
-        time.sleep(1)
-        subprocess.run(["networksetup", "-setairportpower", "en0", "on"])
-        log_event("disconnect", "success")
+    def disconnect(self) -> None:
+        """
+        Disconnect from the current Wi-Fi network.
+        Implementation note: we use 'airport -z' (disassociate) on macOS.
+        In CI/tests this is mocked, so it always succeeds.
+        """
+        # Try the 'airport' disassociate command (macOS private CLI)
+        subprocess.run(
+            [
+                "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport",
+                "-z",
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        # As a fallback (and to keep state clean), quickly toggle interface power.
+        subprocess.run(
+            ["networksetup", "-setairportpower", self.interface, "off"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(
+            ["networksetup", "-setairportpower", self.interface, "on"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
