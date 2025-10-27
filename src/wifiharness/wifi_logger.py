@@ -1,8 +1,16 @@
-import json, time, os
-LOG_PATH = "reports/wifi_log.jsonl"
+import json
+from datetime import datetime
+from typing import Any, Dict
 
-def log_event(action, status, extra=None):
-    rec = {"ts": time.time(), "action": action, "status": status}
-    if extra: rec.update(extra)
-    os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
-    with open(LOG_PATH, "a") as f: f.write(json.dumps(rec)+"\n")
+
+def log_event(event: str, **fields: Any) -> str:
+    """
+    Produce a structured JSON log line for test artifacts.
+    Returns the JSON string (does not write to disk/STDOUT).
+    """
+    payload: Dict[str, Any] = {
+        "ts": datetime.utcnow().isoformat() + "Z",
+        "event": event,
+        **fields,
+    }
+    return json.dumps(payload, separators=(",", ":"), sort_keys=True)

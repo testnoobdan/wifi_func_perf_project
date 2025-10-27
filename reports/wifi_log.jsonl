@@ -1,0 +1,26 @@
+{"ts": 1761545882.248663, "action": "scan", "status": "success"}
+{"ts": 1761545882.261198, "action": "connect", "status": "failure", "error": "Command '['networksetup', '-setairportnetwork', 'en0', 'MyHomeWiFi', 'password123']' returned non-zero exit status 10."}
+{"ts": 1761548392.197746, "action": "scan", "status": "success"}
+{"ts": 1761548956.619286, "action": "scan", "status": "success"}
+{"ts": 1761548956.619881, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.003814697265625}
+{"ts": 1761548956.619931, "action": "ping", "status": "success"}
+{"ts": 1761549130.1915011, "action": "scan", "status": "success"}
+{"ts": 1761549130.192091, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.0040531158447265625}
+{"ts": 1761549130.19214, "action": "ping", "status": "success"}
+{"ts": 1761549131.1973739, "action": "disconnect", "status": "success"}
+{"ts": 1761549261.830483, "action": "scan", "status": "success"}
+{"ts": 1761549261.831061, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.0040531158447265625}
+{"ts": 1761549261.831112, "action": "ping", "status": "success"}
+{"ts": 1761549262.836373, "action": "disconnect", "status": "success"}
+{"ts": 1761549263.00762, "action": "scan", "status": "success"}
+{"ts": 1761549263.0082119, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.00286102294921875}
+{"ts": 1761549263.008269, "action": "ping", "status": "success"}
+{"ts": 1761549264.010009, "action": "disconnect", "status": "success"}
+{"ts": 1761549638.598728, "action": "scan", "status": "success"}
+{"ts": 1761549638.599324, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.0030994415283203125}
+{"ts": 1761549638.599374, "action": "ping", "status": "success"}
+{"ts": 1761549639.60461, "action": "disconnect", "status": "success"}
+{"ts": 1761549639.77566, "action": "scan", "status": "success"}
+{"ts": 1761549639.776268, "action": "connect", "status": "success", "ssid": "MyHomeWiFi", "latency_ms": 0.0040531158447265625}
+{"ts": 1761549639.776312, "action": "ping", "status": "success"}
+{"ts": 1761549640.779132, "action": "disconnect", "status": "success"}
