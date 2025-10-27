@@ -1,0 +1,13 @@
+@startuml
+title Wi-Fi Harness State Machine
+
+[*] --> Idle
+Idle --> Scanning : start_scan()
+Scanning --> Connecting : ssid_found
+Connecting --> Verifying : auth_success
+Connecting --> Failed : auth_error
+Verifying --> Measuring : ping_ok
+Measuring --> Disconnecting : throughput_done
+Disconnecting --> Idle : teardown_complete
+Failed --> Idle : reset
+@enduml

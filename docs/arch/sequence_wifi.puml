@@ -1,0 +1,21 @@
+@startuml
+title Wi-Fi Connection Sequence
+
+actor QE_Engineer
+participant Pytest as "Test Harness"
+participant WiFiController
+participant OS_Network as "System CLI"
+participant WiFiMetrics
+database ReportDB
+
+QE_Engineer -> Pytest : run test_connectivity()
+Pytest -> WiFiController : scan()
+WiFiController -> OS_Network : networksetup -listallhardwareports
+OS_Network --> WiFiController : SSID list
+WiFiController -> OS_Network : setairportnetwork SSID pass
+OS_Network --> WiFiController : connection result
+WiFiController -> WiFiMetrics : ping / throughput
+WiFiMetrics --> WiFiController : metrics
+WiFiController -> ReportDB : write JSONL log
+Pytest --> QE_Engineer : pass/fail report
+@enduml

@@ -1,0 +1,17 @@
+name: WiFi Harness CI
+on: [push, pull_request]
+jobs:
+  build-test:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: make all
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
