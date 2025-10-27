@@ -7,6 +7,8 @@ Exposes key modules:
 - wifi_logger: handles structured JSON logging
 """
 
-from .wifi_controller import WiFiController
-from .wifi_metrics import WiFiMetrics
-from .wifi_logger import log_event
+from src.wifiharness.wifi_logger import log_event
+from src.wifiharness.wifi_metrics import WiFiMetrics
+from src.wifiharness.wifi_controller import WiFiController
+
+__all__ = ["WiFiController", "WiFiMetrics", "log_event"]
