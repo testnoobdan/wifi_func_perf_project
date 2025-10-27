@@ -1,7 +1,7 @@
 
 # Wi-Fi Automation Harness  
 
-[![CI](https://github.com/testnoobdan/wifi_automation_harness/actions/workflows/ci.yml/badge.svg)](https://github.com/<your-username>/wifi_automation_harness/actions/workflows/ci.yml)
+[![CI](https://github.com/testnoobdan/wifi_func_perf_project/actions/workflows/ci.yml/badge.svg)](https://github.com/testnoobdan/wifi_func_perf_project/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen)](#)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Lint: flake8](https://img.shields.io/badge/lint-flake8-blue)](#)
